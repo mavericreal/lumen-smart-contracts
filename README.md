@@ -1,4 +1,4 @@
-Endorsement Tokens
+# Endorsement Tokens
 
 This is an overview of the project **Endorsement Tokens** presented on the [Blockchain For Social Impact Hackathon](https://www.blockchainforsocialimpact.com/hackathon/).
 
