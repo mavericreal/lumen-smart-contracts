@@ -1,5 +1,3 @@
-* Install MetaMask
-
 * Install truffle and an ethereum client
   ```javascript
   npm install -g truffle
