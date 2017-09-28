@@ -1,3 +1,4 @@
 dapp/node_modules
+dapp/build
 npm-debug.log
 .DS_Store
