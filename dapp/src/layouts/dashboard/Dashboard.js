@@ -6,6 +6,10 @@ class Dashboard extends Component {
     authData = this.props
   }
 
+  signBtn() {
+    console.log("signBtn()");
+  }
+
   render() {
     return(
       <main className="container">
@@ -13,6 +17,7 @@ class Dashboard extends Component {
           <div className="pure-u-1-1">
             <h1>Dashboard</h1>
             <p><strong>Congratulations {this.props.authData.name}!</strong> If you're seeing this page, you've logged in with UPort successfully.</p>
+            <button className="signBtn" onClick={this.signBtn}>Buy 10 Shares</button>
           </div>
         </div>
       </main>
