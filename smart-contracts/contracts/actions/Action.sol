@@ -1,9 +1,9 @@
 pragma solidity ^0.4.11;
 import '../base/ActionManagerEnabled.sol';
-import '../base/Validee.sol';
+//import '../base/Validee.sol';
 
-contract Action is ActionManagerEnabled, Validee {
-  // Note auto accessor.
+contract Action is ActionManagerEnabled {
+  /*// Note auto accessor.
   uint8 public permission;
 
   function setPermission(uint8 permVal) returns (bool) {
@@ -11,5 +11,5 @@ contract Action is ActionManagerEnabled, Validee {
       return false;
     }
     permission = permVal;
-  }
+  }*/
 }

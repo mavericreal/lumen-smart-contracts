@@ -12,7 +12,7 @@ contract('ContractManager', function(accounts) {
   });
 
   it('should add a contract', async function() {
-    let name = 'DummyContract1'
+    let name = 'DummyContract'
     let dummyContractMock = await DummyContractMock.new();
     await contractManager.addContract(name, dummyContractMock.address);
     let contractAddress = await contractManager.getContract.call(name);
@@ -20,7 +20,7 @@ contract('ContractManager', function(accounts) {
   });
 
   it('should remove an existing contract', async function() {
-    let name = 'DummyContract1'
+    let name = 'DummyContract'
     let dummyContractMock = await DummyContractMock.new();
     await contractManager.addContract(name, dummyContractMock.address);
     await contractManager.removeContract(name);

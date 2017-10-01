@@ -6,11 +6,16 @@ contract ActionManagerEnabled is OwnerEnabled {
     // Makes it easier to check that action manager is the caller.
     function isActionManager() internal constant returns (bool) {
         if(OWNER != address(0)){
-            address am = ContractProvider(OWNER).contracts("actions");
+            address am = ContractProvider(OWNER).getContract("actions");
             if (msg.sender == am){
                 return true;
             }
+            return false;
         }
         return false;
+    }
+
+    function senderAddress() public returns (address) {
+      return msg.sender;
     }
 }

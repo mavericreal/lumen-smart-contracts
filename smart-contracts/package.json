@@ -11,6 +11,9 @@
     "type": "git",
     "url": "https://github.com/joinmonday/endorsement-tokens.git"
   },
+  "engines": {
+    "node": ">=7.4.0"
+  },
   "keywords": [
     "solidity",
     "ethereum",
