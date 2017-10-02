@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { HiddenOnlyAuth, VisibleOnlyAuth } from './util/wrappers.js'
 
+import { loginUser } from './util/loginUser'
+
 // UI Components
 import LoginButtonContainer from './user/ui/loginbutton/LoginButtonContainer'
 import LogoutButtonContainer from './user/ui/logoutbutton/LogoutButtonContainer'
@@ -13,7 +15,11 @@ import './css/pure-min.css'
 import './App.css'
 
 class App extends Component {
+  componentDidMount() {
+    loginUser();
+  }
   render() {
+
     const OnlyAuthLinks = VisibleOnlyAuth(() =>
       <span>
         <li className="pure-menu-item">
