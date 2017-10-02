@@ -22,6 +22,10 @@ function getClientEnvironment(publicUrl) {
       // images into the `src` and `import` them in code to get their paths.
       'PUBLIC_URL': JSON.stringify(publicUrl)
     });
+
+  var dotenv = require('dotenv').config({silent: true});
+  var envVariables = Object.assign(processEnv, dotenv);
+
   return {'process.env': processEnv};
 }
 

@@ -1,4 +1,6 @@
 dapp/node_modules
+dapp/build_webpack
 dapp/build
+dapp/.env
 npm-debug.log
 .DS_Store
