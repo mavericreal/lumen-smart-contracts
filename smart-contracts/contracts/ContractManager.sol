@@ -21,7 +21,6 @@ contract ContractManager is ContractDB {
         owner = msg.sender;
     }
 
-
     function addContract(bytes32 name, address addr) returns(bool result) {
         // Only the owner may add, and the contract has to be OwnerEnabled and
         // return true when setting the ContractManager address.

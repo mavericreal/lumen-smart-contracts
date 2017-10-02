@@ -7,7 +7,7 @@ contract Validee is OwnerEnabled{
     // Makes it easier to check that action manager is the caller.
     function validate() internal constant returns (bool) {
         if(OWNER != 0x0){
-            address am = ContractProvider(OWNER).contracts("actions");
+            address am = ContractProvider(OWNER).getContract("actions");
             if(am == 0x0){
               return false;
             }

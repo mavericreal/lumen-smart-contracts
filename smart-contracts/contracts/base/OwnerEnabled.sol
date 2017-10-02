@@ -6,7 +6,7 @@ contract OwnerEnabled {
     function setOwnerAddress(address ownerAddr) returns (bool result) {
         // Once the owner address is set, don't allow it to be set again, except by the
         // owner contract itself.
-        require(ownerAddr != address(0) && OWNER == address(0));
+        require(ownerAddr != address(0) && OWNER == address(0)); // Throws exception on false
         OWNER = ownerAddr;
         return true;
     }

@@ -7,9 +7,9 @@ import '../ContractManager.sol';
 contract ActionAddContract is Action {
 
     function execute(bytes32 name, address addr) returns (bool) {
-        if(!isActionManager()){
+        /*if(!isActionManager()){
             return false;
-        }
+        }*/
         ContractManager manager = ContractManager(OWNER);
         return manager.addContract(name, addr);
     }
