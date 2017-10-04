@@ -15,11 +15,11 @@ contract('ActionManager', function(accounts) {
     contractManager = await ContractManager.new();
     actionManager = await ActionManager.new();
     await contractManager.addContract('actions', actionManager.address);
-    await contractManager.addContract('actionDB', actionDB.address);
+    await contractManager.addContract('actiondb', actionDB.address);
   });
 
   it('should add an action', async function() {
-    let name = 'addContract'
+    let name = 'actionAddAction'
     let actionAddContract = await ActionAddContract.new();
     await actionManager.addAction(name, actionAddContract.address);
     let actionAddress = await actionDB.actions(name);
@@ -27,7 +27,7 @@ contract('ActionManager', function(accounts) {
   });
 
   it('should remove an existing action', async function() {
-    let name = 'addContract'
+    let name = 'actionAddAction'
     let actionAddContract = await ActionAddContract.new();
     await actionManager.addAction(name, actionAddContract.address);
     await actionManager.removeAction(name);
@@ -36,16 +36,16 @@ contract('ActionManager', function(accounts) {
   });
 
   it('should execute an already registered action', async function() {
+    let owner = await contractManager.OWNER();
     let name = 'actionAddContract'
     let actionAddContract = await ActionAddContract.new();
     await actionManager.addAction(name, actionAddContract.address);
     let actionAddress = await actionDB.actions(name);
     assert.isTrue(actionAddress == actionAddContract.address);
     let dummyContractMock = await DummyContractMock.new();
-    let result = await actionManager.executeActionAddContract.call('DummyActionMock', dummyContractMock.address);
-    console.log(result);
-    let contractAddress = await contractManager.getContract.call('DummyActionMock');
-    console.log(contractAddress);
+    let contractName = 'DummyContractMock'
+    let result = await actionManager.executeActionAddContract2.call(contractName, dummyContractMock.address);
+    assert.isTrue(result);
   });
 
 });

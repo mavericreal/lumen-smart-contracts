@@ -1,11 +1,10 @@
 pragma solidity ^0.4.11;
 import './interfaces/ContractProvider.sol';
 import './database/ActionDB.sol';
-import './base/ActionManagerEnabled.sol';
+import './base/OwnerEnabled.sol';
 import './actions/ActionAddContract.sol';
 
-contract ActionManager is ActionManagerEnabled {
-    enum ActionChoices { AddNewContract }
+contract ActionManager is OwnerEnabled {
 
     struct ActionLogEntry {
         address caller;
@@ -24,9 +23,8 @@ contract ActionManager is ActionManagerEnabled {
     function ActionManager() {
     }
 
-    function executeActionAddContract(bytes32 contractName, address addr) returns(bool) {
-        bytes32 actionName = "actionAddContract";
-        address actionDb = ContractProvider(OWNER).getContract("actionDB");
+    function execute(bytes32 actionName, bytes data) returns(bool) {
+        address actionDb = ContractProvider(OWNER).getContract("actiondb");
         if (actionDb == address(0)) {
             _log(actionName, false);
             return false;
@@ -39,30 +37,47 @@ contract ActionManager is ActionManagerEnabled {
             return false;
         }
 
+        actn.call(data);
+        _log(actionName, true);
+        return true;
+    }
+
+    function executeActionAddContract2(bytes32 contractName, address addr) returns(bool) {
+        bytes32 action = 'actionAddContract';
+        address actionDb = ContractProvider(OWNER).getContract("actiondb");
+        if (actionDb == address(0)) {
+            _log(action, false);
+            return false;
+        }
+
+        address actn = ActionDB(actionDb).actions(action);
+        // If no action with the given name exists - cancel.
+        if (actn == address(0)) {
+            _log(action, false);
+            return false;
+        }
+
         bool result = ActionAddContract(actn).execute(contractName, addr);
-        _log(actionName, result);
+        _log(action, result);
         return result;
     }
 
     function addAction(bytes32 name, address addr) returns (bool) {
-        address actionDb = ContractProvider(OWNER).getContract("actionDB");
-        if(actionDb == address(0)){
-            return false;
+        address actionDb = ContractProvider(OWNER).getContract("actiondb");
+        if (actionDb == address(0)){
+          return false;
         }
-        // Only action manager can execute
-        return ActionDB(actionDb).addAction(name, addr);
+        bool res = ActionDB(actionDb).addAction(name, addr);
+        return res;
     }
 
     function removeAction(bytes32 name) returns (bool) {
-        address actionDb = ContractProvider(OWNER).getContract("actionDB");
-        if(actionDb == address(0)){
-            return false;
-        }
-        if(name == "addAction"){
+        address actionDb = ContractProvider(OWNER).getContract("actiondb");
+        if (actionDb == address(0)){
           return false;
         }
-        // Only action manager can execute
-        return ActionDB(actionDb).removeAction(name);
+        bool res = ActionDB(actionDb).removeAction(name);
+        return res;
     }
 
     function _log(bytes32 actionName, bool success) internal {

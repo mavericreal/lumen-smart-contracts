@@ -9,7 +9,7 @@ import './base/OwnerEnabled.sol';
 /// the list of elements can be gotten.
 contract ContractManager is ContractDB {
 
-    address owner;
+    address public OWNER;
 
     // When adding a contract.
     event AddContract(address indexed caller, bytes32 indexed name, uint16 indexed code);
@@ -18,13 +18,13 @@ contract ContractManager is ContractDB {
 
     // Constructor
     function ContractManager() {
-        owner = msg.sender;
+        OWNER = msg.sender;
     }
 
     function addContract(bytes32 name, address addr) returns(bool result) {
-        // Only the owner may add, and the contract has to be OwnerEnabled and
+        // Only the OWNER may add, and the contract has to be OwnerEnabled and
         // return true when setting the ContractManager address.
-        if (msg.sender != owner || !OwnerEnabled(addr).setOwnerAddress(address(this))) {
+        if (msg.sender != OWNER || !OwnerEnabled(addr).setOwnerAddress(address(this))) {
             // Access denied. Should divide these up into two maybe.
             AddContract(msg.sender, name, 403);
             return false;
@@ -41,7 +41,7 @@ contract ContractManager is ContractDB {
     }
 
     function removeContract(bytes32 name) returns(bool result) {
-        if (msg.sender != owner) {
+        if (msg.sender != OWNER) {
             RemoveContract(msg.sender, name, 403);
             return false;
         }
@@ -60,10 +60,10 @@ contract ContractManager is ContractDB {
     }
 
     function remove() {
-        if (msg.sender == owner) {
+        if (msg.sender == OWNER) {
             // Finally, remove ContractManager. ContractManager will now have all the funds of the other contracts,
-            // and when suiciding it will all go to the owner.
-            selfdestruct(owner);
+            // and when suiciding it will all go to the OWNER.
+            selfdestruct(OWNER);
         }
     }
 
