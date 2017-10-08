@@ -37,6 +37,13 @@ sass:
   sass_dir: _sass
   # style: compressed
 
+
+copy:
+  landing:
+    value_prop1: This is value prop 1.
+    value_prop1: This is value prop 2.
+    value_prop1: This is value prop 3.
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
